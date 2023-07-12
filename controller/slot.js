@@ -6,7 +6,7 @@ exports.postData =async(req,res)=>{
       try{
         const data =await slot_table.findOne({where:{date:new Date(req.body._date),startTime:req.body._start,endTime:req.body._end}}) 
         if(data){
-            return res.status(202).json({ status: 'error', message: "User already exists"});
+            return res.status(202).json({ status: 'error', message: "slot not available"});
          }
         
        
@@ -21,7 +21,7 @@ else{
             const time1 =await slot_table.findOne({where:{startTime:{[Op.lt]:endTime}}});
             const time2 =await slot_table.findOne({where:{endTime:{[Op.gt]:starTime}}});
             if(time1 && time2){
-                  return res.status(202).json({ status: 'error', message: "User already exists"});
+                  return res.status(202).json({ status: 'error', message: "slot not available"});
             }
 
             else{
